@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MVI Transaction</string>
+
+    <string name="sign_in_on_sign_up"><u>Sign in</u></string>
+    <string name="sign_up_warning">By clicking Sign Up,you agree to our <u>Terms and Conditions</u> and that you have read our <u>Privacy Policy</u></string>
+    <string name="terms_amp_conditions"><u>Terms &amp; Conditions</u></string>
+    <string name="privacy_policy"><u>Privacy Policy</u></string>
+    <string name="sign_up_from_sign_in"><u>Sign Up</u></string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Sign in</string>
+</resources>
