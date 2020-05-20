@@ -7,8 +7,10 @@ import com.mvi.transaction.database.api.RetrofitRequestBuilder
 import com.mvi.transaction.database.api.essentials.ApiEmptyResponse
 import com.mvi.transaction.database.api.essentials.ApiErrorResponse
 import com.mvi.transaction.database.api.essentials.ApiSuccessResponse
+import com.mvi.transaction.database.api.essentials.GenericApiResponse
 import com.mvi.transaction.database.entity.UserEntity
 import com.mvi.transaction.ui.auth.login.state.SigninViewState
+import com.mvi.transaction.utility.DataState
 import okhttp3.ResponseBody
 import org.json.JSONException
 import org.json.JSONObject
@@ -24,17 +26,17 @@ object AuthenticationRepository {
             object : LiveData<SigninViewState>() {
                 override fun onActive() {
                     super.onActive()
-                    when(apiResponse){
+                    value = when(apiResponse){
                         is ApiSuccessResponse -> {
-                            value = SigninViewState( userEntity = apiResponse.body )
+                            SigninViewState( userEntity = apiResponse.body )
                         }
 
                         is ApiErrorResponse -> {
-                            value = SigninViewState() //Handle Error
+                            SigninViewState() //Handle Error
                         }
 
                         is ApiEmptyResponse -> {
-                            value = SigninViewState() //Handle Error
+                            SigninViewState() //Handle Error
                         }
                     }
                 }
@@ -42,12 +44,15 @@ object AuthenticationRepository {
         }
     }
 
-    fun getUserSignin2(email_address: String, password: String): LiveData<SigninViewState> {
-        val responseViewState: MutableLiveData<SigninViewState> = MutableLiveData()
+    fun getUserSignin2(email_address: String, password: String): LiveData<DataState<SigninViewState>> {
+        val responseViewState: MutableLiveData<DataState<SigninViewState>> = MutableLiveData()
         RetrofitRequestBuilder.apiService.startUserSignin2(email_address, password)
             .enqueue(object: Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                     //handle error here
+                    responseViewState.value = DataState.error(
+                        message = t.message.toString()
+                    )
                 }
 
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
@@ -70,7 +75,11 @@ object AuthenticationRepository {
                                 userObject.getString("created_at")
                             )
 
-                            responseViewState.value = SigninViewState( userEntity = userEntity )
+//                            responseViewState.value = SigninViewState( userEntity = userEntity )
+                            responseViewState.value = DataState.success(
+                                message = null,
+                                data = SigninViewState( userEntity = userEntity )
+                            )
                         } else {
                             println("Debug: Signin Failure: ${jObj.getString("message")}")
                         }

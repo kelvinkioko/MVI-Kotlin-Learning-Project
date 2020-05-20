@@ -28,9 +28,7 @@ class SigninActivityFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        signinViewModel = activity?.run {
-            ViewModelProvider(this).get(SigninViewModel::class.java)
-        }?: throw Exception ("Invalid Activity")
+        signinViewModel = activity?.run { ViewModelProvider(this).get(SigninViewModel::class.java) }?: throw Exception ("Invalid Activity")
 
         subscribeObserver()
 
@@ -41,15 +39,14 @@ class SigninActivityFragment : Fragment(){
                 else -> { triggerSigninEvent(sign_in_email.text.toString(), sign_in_password.text.toString()) }
             }
         }
-
     }
 
-    fun subscribeObserver(){
+    private fun subscribeObserver(){
         signinViewModel.signinDataState.observe(viewLifecycleOwner, Observer { signinDataState ->
             println("Debug: Signin Datastate: $signinDataState")
-            signinDataState.userEntity?.let {
-                signinViewModel.setSuccessLogin(signinDataState.userEntity!!)
-            }
+            signinDataState.data?.let { event -> event.getContentIfNotHandled()?.let { signinViewState ->
+                signinViewModel.setSuccessLogin(signinViewState.userEntity!!)
+            }}
         })
 
         signinViewModel.signinViewState.observe(viewLifecycleOwner, Observer { signinViewState ->
