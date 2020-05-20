@@ -35,22 +35,6 @@ class SigninViewModel : ViewModel(){
             is SigninUserEvent -> {
                 println("Debug: Signin Datastate: ${stateEvent.email} . password: ${stateEvent.password}")
                 return AuthenticationRepository.getUserSignin2(stateEvent.email, stateEvent.password)
-//                return AuthenticationRepository.getUserSignin(stateEvent.email, stateEvent.password)
-//                return object: LiveData<SigninViewState>(){
-//                    override fun onActive() {
-//                        super.onActive()
-//                        val userEntity = UserEntity(
-//                            id = 6,
-//                            user_id = "us-2687764460",
-//                            name = "Kioko",
-//                            email = "kioko@gmail.com",
-//                            phonenumber = "0700000000",
-//                            updated_at = "2020-05-18 12:05:00",
-//                            created_at = "2020-05-18 12:05:00"
-//                        )
-//                        value = SigninViewState(userEntity = userEntity)
-//                    }
-//                }
             }
 
             is None -> { AbsentLiveData.create() }

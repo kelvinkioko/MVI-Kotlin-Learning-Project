@@ -1,5 +1,6 @@
 package com.mvi.transaction.ui.auth.login
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -9,12 +10,16 @@ import com.mvi.transaction.R
 import com.mvi.transaction.ui.auth.login.state.SigninStateEvent
 import com.mvi.transaction.ui.auth.login.state.SigninStateEvent.*
 import com.mvi.transaction.ui.auth.login.state.SigninViewModel
+import com.mvi.transaction.utility.DataStateListener
 import kotlinx.android.synthetic.main.activity_signin_fragment.*
+import java.lang.ClassCastException
 import java.lang.Exception
 
 class SigninActivityFragment : Fragment(){
 
     lateinit var signinViewModel: SigninViewModel
+
+    lateinit var dataStateListener: DataStateListener
 
     //To avoid null pointer and init failures we use a root initialization
     private var root: View? = null
@@ -43,6 +48,8 @@ class SigninActivityFragment : Fragment(){
 
     private fun subscribeObserver(){
         signinViewModel.signinDataState.observe(viewLifecycleOwner, Observer { signinDataState ->
+            dataStateListener.onDataStateChange(signinDataState)
+
             println("Debug: Signin Datastate: $signinDataState")
             signinDataState.data?.let { event -> event.getContentIfNotHandled()?.let { signinViewState ->
                 signinViewModel.setSuccessLogin(signinViewState.userEntity!!)
@@ -54,10 +61,20 @@ class SigninActivityFragment : Fragment(){
                  println("DEBUG: Setting user details: $it")
              }
         })
+
+
     }
 
     private fun triggerSigninEvent(email_address: String, password: String){
         signinViewModel.setSigninStateEvent(SigninUserEvent(email_address, password))
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try{
+            dataStateListener = context as DataStateListener
+        }catch (e: ClassCastException){
+            println("Debug: $context must implement DataStateListener")
+        }
+    }
 }

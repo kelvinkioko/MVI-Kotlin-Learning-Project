@@ -46,6 +46,7 @@ object AuthenticationRepository {
 
     fun getUserSignin2(email_address: String, password: String): LiveData<DataState<SigninViewState>> {
         val responseViewState: MutableLiveData<DataState<SigninViewState>> = MutableLiveData()
+        responseViewState.value = DataState.loading(true)
         RetrofitRequestBuilder.apiService.startUserSignin2(email_address, password)
             .enqueue(object: Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -75,13 +76,15 @@ object AuthenticationRepository {
                                 userObject.getString("created_at")
                             )
 
-//                            responseViewState.value = SigninViewState( userEntity = userEntity )
                             responseViewState.value = DataState.success(
                                 message = null,
                                 data = SigninViewState( userEntity = userEntity )
                             )
                         } else {
-                            println("Debug: Signin Failure: ${jObj.getString("message")}")
+                            println("Debug: Signin fail: ${jObj.getString("message")}")
+                            responseViewState.value = DataState.error(
+                                message = jObj.getString("message")
+                            )
                         }
                     } catch (e: JSONException) {
                         e.printStackTrace()

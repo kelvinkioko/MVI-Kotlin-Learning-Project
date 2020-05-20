@@ -23,7 +23,7 @@ sealed class GenericApiResponse<T> {
             Log.d(TAG, "GenericApiResponse: raw: ${response.raw()}")
             Log.d(TAG, "GenericApiResponse: headers: ${response.headers()}")
             Log.d(TAG, "GenericApiResponse: message: ${response.message()}")
-            Log.d(TAG, "GenericApiResponse: message: ${response.body()}")
+            Log.d(TAG, "GenericApiResponse: message: ${response.body().toString()}")
             Log.d(TAG, "GenericApiResponse: message: ${response.errorBody()}")
 
             if(response.isSuccessful){

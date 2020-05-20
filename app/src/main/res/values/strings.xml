@@ -8,4 +8,5 @@
     <string name="sign_up_from_sign_in"><u>Sign Up</u></string>
     <string name="sign_up">Sign up</string>
     <string name="sign_in">Sign in</string>
+    <string name="sign_in_message"><u>Logging in. Please wait...</u></string>
 </resources>
