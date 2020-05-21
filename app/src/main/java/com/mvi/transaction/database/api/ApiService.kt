@@ -14,9 +14,9 @@ interface ApiService {
 
     @POST("login")
     @FormUrlEncoded
-    fun startUserSignin(@Field("email") email_address: String?, @Field("password") password: String?): LiveData<GenericApiResponse<UserEntity>>
+    fun startUserSignin(@Field("email") email_address: String?, @Field("password") password: String?): Call<ResponseBody>
 
-    @POST("login")
+    @POST("register")
     @FormUrlEncoded
-    fun startUserSignin2(@Field("email") email_address: String?, @Field("password") password: String?): Call<ResponseBody>
+    fun startUserSignup(@Field("name") full_name: String?, @Field("email") email_address: String?, @Field("password") password: String?, @Field("c_password") c_password: String?): Call<ResponseBody>
 }

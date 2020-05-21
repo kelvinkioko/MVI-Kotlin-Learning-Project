@@ -34,7 +34,7 @@ class SigninViewModel : ViewModel(){
         return when(stateEvent){
             is SigninUserEvent -> {
                 println("Debug: Signin Datastate: ${stateEvent.email} . password: ${stateEvent.password}")
-                return AuthenticationRepository.getUserSignin2(stateEvent.email, stateEvent.password)
+                return AuthenticationRepository.getUserSignin(stateEvent.email, stateEvent.password)
             }
 
             is None -> { AbsentLiveData.create() }
