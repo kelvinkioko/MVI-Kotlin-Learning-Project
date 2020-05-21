@@ -58,15 +58,17 @@ class SigninActivity : AppCompatActivity(), DataStateListener {
                 dialog.dismiss()
             }
 
-            it.message?.let { message ->
-                dialog.show()
+            it.message?.let { event ->
+                event.getContentIfNotHandled()?.let { message ->
+                    dialog.show()
 
-                loaderPrimary.visibility = View.GONE
-                loaderFail.visibility = View.VISIBLE
-                loaderSuccess.visibility = View.GONE
+                    loaderPrimary.visibility = View.GONE
+                    loaderFail.visibility = View.VISIBLE
+                    loaderSuccess.visibility = View.GONE
 
-                failMessage.text = message.getContentIfNotHandled()!!
-                failDismiss.setOnClickListener{ dialog.dismiss(); loaderDialog() }
+                    failMessage.text = message
+                    failDismiss.setOnClickListener{ dialog.dismiss(); loaderDialog() }
+                }
             }
         }
     }
