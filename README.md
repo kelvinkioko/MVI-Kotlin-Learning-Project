@@ -3,6 +3,14 @@ Example MVI implementation, based off of Google's architectural samples.
 
 ## Description
 
+I will link below some of the useful resources that guided me along the way
+Gradle dependency management with Kotlin (buildSrc)
+- https://proandroiddev.com/gradle-dependency-management-with-kotlin-94eed4df9a28
+    After going through that article and doing the basic set up, I personally added 4 files to my build src folder and
+    also matched the package files to the parent package just for consistency
+
+    You can go through them to and I'll include comments there to also guide you on all the dependecies and where they will be referenced.
+
 This is a sample implementation of the Model View Intent pattern. Full Android examples for MVI are hard to find.
 
 Target audience include, but not limited to:

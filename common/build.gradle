@@ -1,0 +1,59 @@
+import com.mvi.transaction.buildsrc.Dependencies
+
+//plugins {
+//    api("com.android.library")
+//    api("kotlin-android")
+//    api("kotlin-android-extensions")
+//    api("kotlin-kapt")
+//}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: "$rootProject.projectDir/android_defaults.gradle"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api(Dependencies.Kotlin.stdlib)
+    api(Dependencies.AndroidX.appcompat)
+    api(Dependencies.AndroidX.core_ktx)
+    api(Dependencies.AndroidX.constraintLayout)
+    api(Dependencies.AndroidX.legacy)
+    testImplementation Dependencies.junit
+    androidTestImplementation Dependencies.AndroidX.ext_junit
+    androidTestImplementation Dependencies.AndroidX.espresso
+
+
+    // -- Retrofit2
+    api(Dependencies.Retrofit.retrofit)
+    api(Dependencies.Retrofit.converter)
+
+    // -- Lifecycle Components (ViewModel, LiveData and ReactiveStreams)
+    api(Dependencies.AndroidX.Lifecycle.extensions)
+    kapt Dependencies.AndroidX.Lifecycle.compiler
+    api(Dependencies.AndroidX.Lifecycle.livedata)
+
+    // -- Room DB
+    api(Dependencies.RoomDB.room_runtime)
+    kapt Dependencies.RoomDB.room_compiler
+
+    // -- Coroutines
+    api(Dependencies.Kotlin.Coroutines.core)
+    api(Dependencies.Kotlin.Coroutines.android)
+
+    // RecyclerView
+    api(Dependencies.AndroidX.Recycler.recyclerView)
+
+    // Google Material
+    api(Dependencies.Material.google_material)
+
+    //glide
+    api(Dependencies.Glide.glide)
+    kapt Dependencies.Glide.compiler
+
+    // Leak Canary (detecting memory leaks)
+    debugImplementation Dependencies.LeakCanary.canary
+}
