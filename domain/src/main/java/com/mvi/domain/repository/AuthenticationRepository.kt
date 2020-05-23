@@ -28,7 +28,7 @@ object AuthenticationRepository {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     //your raw string response
                     val stringResponse = response.body()?.string()
-                    println("Debug: Signin Datastate: ${stringResponse}")
+                    println("Debug: Signin Datastate: $stringResponse")
                     try {
                         val jObj = JSONObject(stringResponse!!)
                         if (jObj.getString("success") == "true") {
