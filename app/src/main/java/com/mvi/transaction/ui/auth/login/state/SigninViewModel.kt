@@ -6,7 +6,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.mvi.transaction.database.api.AbsentLiveData
 import com.mvi.transaction.database.entity.UserEntity
-import com.mvi.transaction.database.repository.AuthenticationRepository
+import com.mvi.domain.repository.AuthenticationRepository
 import com.mvi.transaction.ui.auth.login.state.SigninStateEvent.*
 import com.mvi.transaction.utility.DataState
 

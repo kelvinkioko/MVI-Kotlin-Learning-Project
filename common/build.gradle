@@ -17,6 +17,8 @@ apply from: "$rootProject.projectDir/android_defaults.gradle"
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    api(project(":domain"))
+
     api(Dependencies.Kotlin.stdlib)
     api(Dependencies.AndroidX.appcompat)
     api(Dependencies.AndroidX.core_ktx)

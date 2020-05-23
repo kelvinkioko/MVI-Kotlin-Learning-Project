@@ -1,2 +1,3 @@
 rootProject.name='MVI Transaction'
-include(":app", ":common", ":domain")
+include(":app", ":common")
+include ':domain'

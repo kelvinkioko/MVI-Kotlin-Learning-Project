@@ -2,18 +2,18 @@
  * If you intend on using → apply plugin: 'com.insert relevant plugin' then make sure your gradle files are 'build.gradle'
  * and also android on line 20 will give you an error the moment you add the '.kts' extension
  */
-//apply plugin: 'com.android.application'
-//apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-android-extensions'
-//apply plugin: 'kotlin-kapt'
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
-plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-android-extensions")
-    id("kotlin-kapt")
-    kotlin("and roid")
-}
+//plugins {
+//    id("com.android.application")
+//    id("kotlin-android")
+//    id("kotlin-android-extensions")
+//    id("kotlin-kapt")
+//    kotlin("and roid")
+//}
 
 apply from: "$rootProject.projectDir/android_defaults.gradle"
 
@@ -32,4 +32,5 @@ android {
  */
 dependencies {
     implementation(project(":common"))
+    implementation(project(":domain"))
 }
